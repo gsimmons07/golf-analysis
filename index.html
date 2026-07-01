@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PGA Tour Venue Analysis</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+  <main class="page-layout">
+    <section class="left-area">
+      <div class="media-card">
+        <img src="courselogo/placeholder-course-logo.svg" alt="Selected course logo">
+      </div>
+
+      <div class="panel control-card">
+        <label class="form-label" for="courseSelect">Course</label>
+        <select class="form-select" id="courseSelect">
+          <option selected>Choose a venue</option>
+          <option>Augusta National Golf Club</option>
+          <option>Harbour Town Golf Links</option>
+          <option>Quail Hollow Club</option>
+          <option>Torrey Pines South</option>
+          <option>Waialae Country Club</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="detail-card panel">
+      <p class="section-kicker">Course Stats</p>
+      <h1 class="h4">Venue Setup</h1>
+      <dl class="stats-list">
+        <div>
+          <dt>Location</dt>
+          <dd>City, State</dd>
+        </div>
+        <div>
+          <dt>Dates</dt>
+          <dd>Thu-Sun</dd>
+        </div>
+        <div>
+          <dt>Weather</dt>
+          <dd>Projected wind and rain notes</dd>
+        </div>
+        <div>
+          <dt>Course</dt>
+          <dd>Par 72 / 7,250 yards</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="center-area">
+      <div class="main-card panel">
+        <div class="sg-card-header">
+          <div>
+            <p class="section-kicker">Season Strokes Gained</p>
+            <h3 id="selectedPlayer">Scottie Scheffler</h3>
+          </div>
+          <select class="profile-select" id="profileView" aria-label="Profile view">
+            <option value="overall" selected>Overall</option>
+            <option value="breakdown">Breakdown</option>
+          </select>
+        </div>
+
+        <div class="sg-legend" aria-label="Chart legend">
+          <span><i class="legend-average"></i>PGA Tour Average</span>
+          <span><i class="legend-player"></i><span id="legendName">Scheffler's Profile</span></span>
+        </div>
+
+        <div class="radar-chart-wrap">
+          <svg class="radar-chart" viewBox="0 0 760 660" role="img" aria-labelledby="sgChartTitle sgChartDesc">
+            <title id="sgChartTitle">Strokes gained radar chart</title>
+            <desc id="sgChartDesc">Radar chart showing PGA Tour average and selected player strokes gained by category.</desc>
+            <g id="rings"></g>
+            <g id="axes"></g>
+            <circle class="average-ring" cx="380" cy="330" r="120"></circle>
+            <polygon id="playerShape" class="player-shape" points=""></polygon>
+            <g id="points"></g>
+            <g id="valueLabels"></g>
+            <g id="axisLabels"></g>
+            <text class="scale-label" x="398" y="96">3</text>
+            <text class="scale-label" x="398" y="156">1.5</text>
+            <text class="scale-label" x="398" y="216">0</text>
+            <text class="scale-label" x="398" y="276">-1.5</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <aside class="side-panel panel">
+      <div class="side-panel-header">
+        <p class="section-kicker">The Field</p>
+      </div>
+      <label class="visually-hidden" for="playerSearch">Search players</label>
+      <input class="field-search" id="playerSearch" type="search" placeholder="Search players">
+      <div class="list-group player-list" id="playerList">
+        <button class="list-group-item list-group-item-action active" type="button" data-player="scheffler">Scottie Scheffler</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="mcilroy">Rory McIlroy</button>
+      </div>
+    </aside>
+
+    <section class="bottom-panel winners-panel panel">
+      <div class="bottom-panel-header">
+        <p class="section-kicker">Tournament History</p>
+        <h3>Last 5 Winners</h3>
+      </div>
+      <div class="profile-table champion-table" aria-label="Last five tournament winners strokes gained profile">
+        <div class="profile-row profile-heading">
+          <span>Year</span>
+          <span>Winner</span>
+          <span>Score</span>
+          <span>OTT</span>
+          <span>APP</span>
+          <span>ARG</span>
+          <span>PUTT</span>
+          <span>Total</span>
+        </div>
+        <div class="profile-row">
+          <span>2025</span>
+          <strong>Player Name</strong>
+          <span>-14</span>
+          <span>+0.6</span>
+          <span>+1.4</span>
+          <span>+0.2</span>
+          <span>+0.8</span>
+          <b>+3.0</b>
+        </div>
+        <div class="profile-row">
+          <span>2024</span>
+          <strong>Player Name</strong>
+          <span>-11</span>
+          <span>+0.3</span>
+          <span>+0.9</span>
+          <span>+0.5</span>
+          <span>+1.1</span>
+          <b>+2.8</b>
+        </div>
+        <div class="profile-row">
+          <span>2023</span>
+          <strong>Player Name</strong>
+          <span>-16</span>
+          <span>+1.2</span>
+          <span>+0.8</span>
+          <span>+0.1</span>
+          <span>+0.4</span>
+          <b>+2.5</b>
+        </div>
+        <div class="profile-row">
+          <span>2022</span>
+          <strong>Player Name</strong>
+          <span>-13</span>
+          <span>+0.4</span>
+          <span>+0.7</span>
+          <span>+0.9</span>
+          <span>+0.5</span>
+          <b>+2.5</b>
+        </div>
+        <div class="profile-row">
+          <span>2021</span>
+          <strong>Player Name</strong>
+          <span>-12</span>
+          <span>+0.8</span>
+          <span>+1.0</span>
+          <span>+0.3</span>
+          <span>+0.2</span>
+          <b>+2.3</b>
+        </div>
+      </div>
+    </section>
+
+    <section class="bottom-panel comp-panel panel">
+      <div class="bottom-panel-header">
+        <p class="section-kicker">Winner Profile Match</p>
+        <h3>Players With Similar Winning Traits</h3>
+      </div>
+      <div class="profile-table comp-table" aria-label="Players matching past winner strokes gained profiles">
+        <div class="profile-row profile-heading">
+          <span>Match</span>
+          <span>Player</span>
+          <span>OTT</span>
+          <span>APP</span>
+          <span>ARG</span>
+          <span>PUTT</span>
+          <span>Total</span>
+        </div>
+        <div class="profile-row">
+          <b>94%</b>
+          <strong>Scottie Scheffler</strong>
+          <span>+1.6</span>
+          <span>+2.8</span>
+          <span>+2.2</span>
+          <span>+1.8</span>
+          <b>+8.3</b>
+        </div>
+        <div class="profile-row">
+          <b>88%</b>
+          <strong>Rory McIlroy</strong>
+          <span>+2.5</span>
+          <span>+1.4</span>
+          <span>+0.5</span>
+          <span>+1.1</span>
+          <b>+5.5</b>
+        </div>
+        <div class="profile-row">
+          <b>81%</b>
+          <strong>Player Placeholder</strong>
+          <span>+0.9</span>
+          <span>+1.2</span>
+          <span>+0.8</span>
+          <span>+0.7</span>
+          <b>+3.6</b>
+        </div>
+        <div class="profile-row">
+          <b>76%</b>
+          <strong>Player Placeholder</strong>
+          <span>+0.7</span>
+          <span>+1.0</span>
+          <span>+0.4</span>
+          <span>+1.0</span>
+          <b>+3.1</b>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const categories = [
+      "Driving Dist.",
+      "Driving Acc.",
+      "Approach",
+      "Around Green",
+      "Putting"
+    ];
+
+    const players = {
+      scheffler: {
+        name: "Scottie Scheffler",
+        shortName: "Scheffler",
+        stats: {
+          "Driving Dist.": 1.55,
+          "Driving Acc.": 1.25,
+          "Approach": 2.75,
+          "Around Green": 2.15,
+          "Putting": 1.75
+        }
+      },
+      mcilroy: {
+        name: "Rory McIlroy",
+        shortName: "McIlroy",
+        stats: {
+          "Driving Dist.": 2.45,
+          "Driving Acc.": 0.65,
+          "Approach": 1.35,
+          "Around Green": 0.45,
+          "Putting": 1.05
+        }
+      }
+    };
+
+    const selectedPlayer = document.querySelector("#selectedPlayer");
+    const playerButtons = document.querySelectorAll("#playerList button");
+    const playerSearch = document.querySelector("#playerSearch");
+    const shape = document.querySelector("#playerShape");
+    const pointsGroup = document.querySelector("#points");
+    const valueLabelsGroup = document.querySelector("#valueLabels");
+    const axesGroup = document.querySelector("#axes");
+    const ringsGroup = document.querySelector("#rings");
+    const axisLabelsGroup = document.querySelector("#axisLabels");
+    const legendName = document.querySelector("#legendName");
+    const center = { x: 380, y: 330 };
+    const maxRadius = 240;
+    const minValue = -3;
+    const maxValue = 3;
+
+    function angleForIndex(index) {
+      return -Math.PI / 2 + index * ((Math.PI * 2) / categories.length);
+    }
+
+    function radiusForValue(value) {
+      const clamped = Math.max(minValue, Math.min(maxValue, value));
+      return ((clamped - minValue) / (maxValue - minValue)) * maxRadius;
+    }
+
+    function pointForValue(value, index) {
+      const angle = angleForIndex(index);
+      const radius = radiusForValue(value);
+
+      return pointForRadius(radius, index);
+    }
+
+    function pointForRadius(radius, index) {
+      const angle = angleForIndex(index);
+
+      return {
+        x: center.x + Math.cos(angle) * radius,
+        y: center.y + Math.sin(angle) * radius
+      };
+    }
+
+    function drawBaseChart() {
+      [60, 120, 180, 240].forEach((radius) => {
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("class", "radar-ring");
+        circle.setAttribute("cx", center.x);
+        circle.setAttribute("cy", center.y);
+        circle.setAttribute("r", radius);
+        ringsGroup.appendChild(circle);
+      });
+
+      categories.forEach((category, index) => {
+        const outer = pointForValue(maxValue, index);
+        const label = pointForRadius(maxRadius + 44, index);
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+
+        line.setAttribute("class", "radar-axis");
+        line.setAttribute("x1", center.x);
+        line.setAttribute("y1", center.y);
+        line.setAttribute("x2", outer.x);
+        line.setAttribute("y2", outer.y);
+        axesGroup.appendChild(line);
+
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("class", "axis-label");
+        text.setAttribute("x", label.x);
+        text.setAttribute("y", label.y);
+        text.setAttribute("text-anchor", index === 1 || index === 2 ? "start" : index === 3 || index === 4 ? "end" : "middle");
+        text.textContent = category;
+        axisLabelsGroup.appendChild(text);
+      });
+    }
+
+    function formatSg(value) {
+      return value > 0 ? `+${value.toFixed(2)}` : value.toFixed(2);
+    }
+
+    function updateChart(playerKey) {
+      const player = players[playerKey] || players.scheffler;
+      const chartPoints = categories.map((category, index) => pointForValue(player.stats[category], index));
+
+      selectedPlayer.textContent = player.name;
+      legendName.textContent = `${player.shortName}'s Profile`;
+      shape.setAttribute("points", chartPoints.map((point) => `${point.x},${point.y}`).join(" "));
+      pointsGroup.innerHTML = "";
+      valueLabelsGroup.innerHTML = "";
+
+      chartPoints.forEach((point, index) => {
+        const value = player.stats[categories[index]];
+        const angle = angleForIndex(index);
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+
+        circle.setAttribute("class", "radar-point");
+        circle.setAttribute("cx", point.x);
+        circle.setAttribute("cy", point.y);
+        circle.setAttribute("r", 8);
+        pointsGroup.appendChild(circle);
+
+        label.setAttribute("class", "point-value");
+        label.setAttribute("x", point.x - Math.cos(angle) * 22);
+        label.setAttribute("y", point.y - Math.sin(angle) * 22 + 5);
+        label.setAttribute("text-anchor", index === 1 || index === 2 ? "start" : index === 3 || index === 4 ? "end" : "middle");
+        label.textContent = formatSg(value);
+        valueLabelsGroup.appendChild(label);
+      });
+    }
+
+    playerButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        playerButtons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        updateChart(button.dataset.player);
+      });
+    });
+
+    playerSearch.addEventListener("input", () => {
+      const query = playerSearch.value.trim().toLowerCase();
+
+      playerButtons.forEach((button) => {
+        const playerName = button.textContent.toLowerCase();
+        button.hidden = !playerName.includes(query);
+      });
+    });
+
+    drawBaseChart();
+    updateChart("scheffler");
+  </script>
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Profile Experiment</title>
+  <style>
+    :root {
+      --bg: #141414;
+      --panel: #191919;
+      --line: #2a2a2a;
+      --text: #e5e5e5;
+      --muted: #8c8c8c;
+      --green: #3fac7c;
+      --green-soft: rgba(63, 172, 124, 0.28);
+      --average: #aebeb5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .profile-shell {
+      display: grid;
+      grid-template-columns: 280px minmax(560px, 1fr);
+      gap: 28px;
+      min-height: 100vh;
+      padding: 36px;
+    }
+
+    .controls {
+      padding-top: 8px;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .title-marker {
+      width: 28px;
+      height: 28px;
+      border: 4px solid var(--green);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      line-height: 1;
+    }
+
+    .field-label {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .select-box {
+      width: 100%;
+      margin-bottom: 28px;
+      padding: 14px 16px;
+      border: 0;
+      border-radius: 2px;
+      color: #111;
+      background: #d7d7d7;
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .player-buttons {
+      display: grid;
+      gap: 12px;
+    }
+
+    .player-button {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      color: var(--text);
+      background: var(--panel);
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .player-button:hover,
+    .player-button.active {
+      border-color: var(--green);
+      background: #20362c;
+    }
+
+    .chart-panel {
+      position: relative;
+      min-height: 680px;
+      padding: 10px 10px 0;
+      border-top: 4px solid var(--line);
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: flex-end;
+      gap: 28px;
+      margin: 10px 12px 0;
+      color: var(--muted);
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .legend-average {
+      width: 20px;
+      height: 20px;
+      border: 4px dashed var(--average);
+      border-radius: 50%;
+    }
+
+    .legend-player {
+      width: 28px;
+      height: 28px;
+      border: 4px solid var(--green);
+    }
+
+    .radar-wrap {
+      display: grid;
+      place-items: center;
+      padding-top: 18px;
+    }
+
+    svg {
+      width: min(860px, 100%);
+      height: auto;
+      overflow: visible;
+    }
+
+    .axis-line {
+      stroke: #0f0f0f;
+      stroke-width: 4;
+    }
+
+    .ring {
+      fill: none;
+      stroke: #202020;
+      stroke-width: 4;
+    }
+
+    .avg-ring {
+      fill: none;
+      stroke: var(--average);
+      stroke-width: 5;
+      stroke-dasharray: 10 9;
+      opacity: 0.9;
+    }
+
+    .player-shape {
+      fill: var(--green-soft);
+      stroke: var(--green);
+      stroke-width: 6;
+      filter: drop-shadow(0 0 20px rgba(63, 172, 124, 0.35));
+      transition: points 180ms ease;
+    }
+
+    .point {
+      fill: var(--green);
+      stroke: var(--green);
+      stroke-width: 4;
+      transition: cx 180ms ease, cy 180ms ease;
+    }
+
+    .axis-label {
+      fill: #a9a9a9;
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .scale-label {
+      fill: #bcbcbc;
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .stat-readout {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin: 8px auto 0;
+      max-width: 860px;
+    }
+
+    .stat-card {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--panel);
+    }
+
+    .stat-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .stat-card strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 1.25rem;
+    }
+
+    @media (max-width: 960px) {
+      .profile-shell {
+        grid-template-columns: 1fr;
+        padding: 20px;
+      }
+
+      .chart-panel {
+        min-height: auto;
+      }
+
+      .chart-header {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .stat-readout {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="profile-shell">
+    <aside class="controls">
+      <div class="title-row">
+        <span class="title-marker"></span>
+        <h1>Skill Profile</h1>
+      </div>
+
+      <p class="field-label">View</p>
+      <select class="select-box" aria-label="Profile type">
+        <option>OVERALL</option>
+        <option>OFF THE TEE</option>
+        <option>APPROACH</option>
+      </select>
+
+      <p class="field-label">Test Players</p>
+      <div class="player-buttons">
+        <button class="player-button active" type="button" data-player="scheffler">Scottie Scheffler</button>
+        <button class="player-button" type="button" data-player="mcilroy">Rory McIlroy</button>
+      </div>
+    </aside>
+
+    <section class="chart-panel">
+      <div class="chart-header">
+        <span class="legend-item"><span class="legend-average"></span>PGA Tour Average</span>
+        <span class="legend-item"><span class="legend-player"></span><span id="legendName">Scheffler's Profile</span></span>
+      </div>
+
+      <div class="radar-wrap">
+        <svg viewBox="0 0 900 760" role="img" aria-labelledby="chartTitle chartDesc">
+          <title id="chartTitle">Player skill profile radar chart</title>
+          <desc id="chartDesc">A radar chart comparing five skill categories for the selected player.</desc>
+
+          <g id="rings"></g>
+          <g id="axes"></g>
+          <circle class="avg-ring" cx="450" cy="390" r="170"></circle>
+          <polygon id="playerShape" class="player-shape" points=""></polygon>
+          <g id="points"></g>
+          <g id="labels"></g>
+
+          <text class="scale-label" x="472" y="113">3</text>
+          <text class="scale-label" x="472" y="203">1.5</text>
+          <text class="scale-label" x="472" y="293">0</text>
+          <text class="scale-label" x="472" y="383">-1.5</text>
+        </svg>
+      </div>
+
+      <div class="stat-readout" id="statReadout"></div>
+    </section>
+  </main>
+
+  <script>
+    const categories = [
+      "Driving Dist.",
+      "Driving Acc.",
+      "Approach",
+      "Around Green",
+      "Putting"
+    ];
+
+    const players = {
+      scheffler: {
+        name: "Scottie Scheffler",
+        shortName: "Scheffler",
+        stats: {
+          "Driving Dist.": 1.55,
+          "Driving Acc.": 1.25,
+          "Approach": 2.75,
+          "Around Green": 2.15,
+          "Putting": 1.75
+        }
+      },
+      mcilroy: {
+        name: "Rory McIlroy",
+        shortName: "McIlroy",
+        stats: {
+          "Driving Dist.": 2.45,
+          "Driving Acc.": 0.65,
+          "Approach": 1.35,
+          "Around Green": 0.45,
+          "Putting": 1.05
+        }
+      }
+    };
+
+    const center = { x: 450, y: 390 };
+    const maxRadius = 290;
+    const minValue = -3;
+    const maxValue = 3;
+    const shape = document.querySelector("#playerShape");
+    const pointsGroup = document.querySelector("#points");
+    const axesGroup = document.querySelector("#axes");
+    const ringsGroup = document.querySelector("#rings");
+    const labelsGroup = document.querySelector("#labels");
+    const legendName = document.querySelector("#legendName");
+    const statReadout = document.querySelector("#statReadout");
+    const playerButtons = document.querySelectorAll(".player-button");
+
+    function angleForIndex(index) {
+      return -Math.PI / 2 + index * ((Math.PI * 2) / categories.length);
+    }
+
+    function radiusForValue(value) {
+      const clamped = Math.max(minValue, Math.min(maxValue, value));
+      return ((clamped - minValue) / (maxValue - minValue)) * maxRadius;
+    }
+
+    function pointForValue(value, index) {
+      const angle = angleForIndex(index);
+      const radius = radiusForValue(value);
+
+      return {
+        x: center.x + Math.cos(angle) * radius,
+        y: center.y + Math.sin(angle) * radius
+      };
+    }
+
+    function drawBaseChart() {
+      [72, 145, 218, 290].forEach((radius) => {
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("class", "ring");
+        circle.setAttribute("cx", center.x);
+        circle.setAttribute("cy", center.y);
+        circle.setAttribute("r", radius);
+        ringsGroup.appendChild(circle);
+      });
+
+      categories.forEach((category, index) => {
+        const outer = pointForValue(maxValue, index);
+        const label = pointForValue(3.55, index);
+
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("class", "axis-line");
+        line.setAttribute("x1", center.x);
+        line.setAttribute("y1", center.y);
+        line.setAttribute("x2", outer.x);
+        line.setAttribute("y2", outer.y);
+        axesGroup.appendChild(line);
+
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("class", "axis-label");
+        text.setAttribute("x", label.x);
+        text.setAttribute("y", label.y);
+        text.setAttribute("text-anchor", index === 1 || index === 2 ? "start" : index === 3 || index === 4 ? "end" : "middle");
+        text.textContent = category;
+        labelsGroup.appendChild(text);
+      });
+    }
+
+    function updateChart(playerKey) {
+      const player = players[playerKey];
+      const chartPoints = categories.map((category, index) => pointForValue(player.stats[category], index));
+
+      shape.setAttribute("points", chartPoints.map((point) => `${point.x},${point.y}`).join(" "));
+      pointsGroup.innerHTML = "";
+      statReadout.innerHTML = "";
+      legendName.textContent = `${player.shortName}'s Profile`;
+
+      chartPoints.forEach((point) => {
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("class", "point");
+        circle.setAttribute("cx", point.x);
+        circle.setAttribute("cy", point.y);
+        circle.setAttribute("r", 9);
+        pointsGroup.appendChild(circle);
+      });
+
+      categories.forEach((category) => {
+        const card = document.createElement("div");
+        card.className = "stat-card";
+        card.innerHTML = `<span>${category}</span><strong>${player.stats[category].toFixed(2)}</strong>`;
+        statReadout.appendChild(card);
+      });
+    }
+
+    playerButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        playerButtons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        updateChart(button.dataset.player);
+      });
+    });
+
+    drawBaseChart();
+    updateChart("scheffler");
+  </script>
+</body>
+</html>

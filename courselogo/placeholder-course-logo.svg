@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder course logo</title>
+  <desc id="desc">A simple green golf course badge placeholder.</desc>
+  <rect width="220" height="220" rx="24" fill="#12372a"/>
+  <circle cx="110" cy="110" r="74" fill="#f3ede1"/>
+  <path d="M58 136c19-30 41-45 66-45 15 0 27 5 38 14-7 32-26 50-57 55-18 3-34-5-47-24z" fill="#3f6f52"/>
+  <path d="M116 60v70" stroke="#12372a" stroke-width="8" stroke-linecap="round"/>
+  <path d="M120 62h42l-12 18 12 18h-42z" fill="#c08b4f"/>
+  <circle cx="104" cy="139" r="7" fill="#ffffff"/>
+  <text x="110" y="194" text-anchor="middle" fill="#f3ede1" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">COURSE LOGO</text>
+</svg>
