@@ -63,27 +63,47 @@
           </select>
         </div>
 
-        <div class="sg-legend" aria-label="Chart legend">
-          <span><i class="legend-average"></i>PGA Tour Average</span>
-          <span><i class="legend-player"></i><span id="legendName">Scheffler's Profile</span></span>
+        <div class="profile-view profile-view-active" id="overallProfile">
+          <div class="sg-legend" aria-label="Chart legend">
+            <span><i class="legend-average"></i>PGA Tour Average</span>
+            <span><i class="legend-player"></i><span id="legendName">Scheffler's Profile</span></span>
+          </div>
+
+          <div class="radar-chart-wrap">
+            <svg class="radar-chart" viewBox="35 10 690 625" role="img" aria-labelledby="sgChartTitle sgChartDesc">
+              <title id="sgChartTitle">Strokes gained radar chart</title>
+              <desc id="sgChartDesc">Radar chart showing PGA Tour average and selected player strokes gained by category.</desc>
+              <g id="rings"></g>
+              <g id="axes"></g>
+              <circle class="average-ring" cx="380" cy="330" r="120"></circle>
+              <polygon id="playerShape" class="player-shape" points=""></polygon>
+              <g id="points"></g>
+              <g id="valueLabels"></g>
+              <g id="axisLabels"></g>
+              <text class="scale-label" x="398" y="96">3</text>
+              <text class="scale-label" x="398" y="156">1.5</text>
+              <text class="scale-label" x="398" y="216">0</text>
+              <text class="scale-label" x="398" y="276">-1.5</text>
+            </svg>
+          </div>
         </div>
 
-        <div class="radar-chart-wrap">
-          <svg class="radar-chart" viewBox="0 0 760 660" role="img" aria-labelledby="sgChartTitle sgChartDesc">
-            <title id="sgChartTitle">Strokes gained radar chart</title>
-            <desc id="sgChartDesc">Radar chart showing PGA Tour average and selected player strokes gained by category.</desc>
-            <g id="rings"></g>
-            <g id="axes"></g>
-            <circle class="average-ring" cx="380" cy="330" r="120"></circle>
-            <polygon id="playerShape" class="player-shape" points=""></polygon>
-            <g id="points"></g>
-            <g id="valueLabels"></g>
-            <g id="axisLabels"></g>
-            <text class="scale-label" x="398" y="96">3</text>
-            <text class="scale-label" x="398" y="156">1.5</text>
-            <text class="scale-label" x="398" y="216">0</text>
-            <text class="scale-label" x="398" y="276">-1.5</text>
-          </svg>
+        <div class="profile-view breakdown-card" id="breakdownProfile" hidden>
+          <div class="skill-scale" aria-hidden="true">
+            <span>Worst</span>
+            <span>Poor</span>
+            <span>Average</span>
+            <span>Good</span>
+            <span>Best</span>
+          </div>
+          <div class="skill-scale-dots" aria-hidden="true">
+            <i class="dot-worst"></i>
+            <i class="dot-poor"></i>
+            <i class="dot-average"></i>
+            <i class="dot-good"></i>
+            <i class="dot-best"></i>
+          </div>
+          <div class="skill-groups" id="skillGroups" aria-label="Selected player skill breakdown"></div>
         </div>
       </div>
     </section>
@@ -97,8 +117,74 @@
       <div class="list-group player-list" id="playerList">
         <button class="list-group-item list-group-item-action active" type="button" data-player="scheffler">Scottie Scheffler</button>
         <button class="list-group-item list-group-item-action" type="button" data-player="mcilroy">Rory McIlroy</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="morikawa">Collin Morikawa</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="schauffele">Xander Schauffele</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="cantlay">Patrick Cantlay</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="hovland">Viktor Hovland</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="thomas">Justin Thomas</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="finau">Tony Finau</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="burns">Sam Burns</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="placeholder">Player Placeholder</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="rahm">Jon Rahm</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="fleetwood">Tommy Fleetwood</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="lowry">Shane Lowry</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="day">Jason Day</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="spieth">Jordan Spieth</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="fowler">Rickie Fowler</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="harman">Brian Harman</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="young">Cameron Young</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="theegala">Sahith Theegala</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="kim">Tom Kim</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="im">Sungjae Im</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="conners">Corey Conners</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="fitzpatrick">Matt Fitzpatrick</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="rose">Justin Rose</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="matsuyama">Hideki Matsuyama</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="hatton">Tyrrell Hatton</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="english">Harris English</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="henley">Russell Henley</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="straka">Sepp Straka</button>
+        <button class="list-group-item list-group-item-action" type="button" data-player="clark">Wyndham Clark</button>
       </div>
     </aside>
+
+    <section class="player-results-panel recent-results-panel panel">
+      <div class="bottom-panel-header">
+        <p class="section-kicker">Recent Results</p>
+        <h3>Last 5 Tournaments</h3>
+      </div>
+      <div class="profile-table result-table" aria-label="Selected player's last five tournament results">
+        <div class="profile-row profile-heading">
+          <span>Event</span>
+          <span>Finish</span>
+          <span>OTT</span>
+          <span>APP</span>
+          <span>ARG</span>
+          <span>PUTT</span>
+          <span>Total</span>
+        </div>
+        <div class="profile-body" id="recentResultsBody"></div>
+      </div>
+    </section>
+
+    <section class="player-results-panel best-results-panel panel">
+      <div class="bottom-panel-header">
+        <p class="section-kicker">Season Highs</p>
+        <h3>Best Tournaments This Season</h3>
+      </div>
+      <div class="profile-table result-table" aria-label="Selected player's best tournament results this season">
+        <div class="profile-row profile-heading">
+          <span>Event</span>
+          <span>Finish</span>
+          <span>OTT</span>
+          <span>APP</span>
+          <span>ARG</span>
+          <span>PUTT</span>
+          <span>Total</span>
+        </div>
+        <div class="profile-body" id="bestResultsBody"></div>
+      </div>
+    </section>
 
     <section class="bottom-panel winners-panel panel">
       <div class="bottom-panel-header">
@@ -222,168 +308,61 @@
         </div>
       </div>
     </section>
+
+    <section class="bottom-panel trending-panel panel">
+      <div class="bottom-panel-header">
+        <p class="section-kicker">Current Form</p>
+        <h3>Trending Players</h3>
+      </div>
+      <div class="profile-table comp-table" aria-label="Trending players strokes gained profiles">
+        <div class="profile-row profile-heading">
+          <span>Trend</span>
+          <span>Player</span>
+          <span>OTT</span>
+          <span>APP</span>
+          <span>ARG</span>
+          <span>PUTT</span>
+          <span>Total</span>
+        </div>
+        <div class="profile-row">
+          <b>Hot</b>
+          <strong>Scottie Scheffler</strong>
+          <span>+1.6</span>
+          <span>+2.8</span>
+          <span>+2.2</span>
+          <span>+1.8</span>
+          <b>+8.3</b>
+        </div>
+        <div class="profile-row">
+          <b>Up</b>
+          <strong>Rory McIlroy</strong>
+          <span>+2.5</span>
+          <span>+1.4</span>
+          <span>+0.5</span>
+          <span>+1.1</span>
+          <b>+5.5</b>
+        </div>
+        <div class="profile-row">
+          <b>Up</b>
+          <strong>Player Placeholder</strong>
+          <span>+0.9</span>
+          <span>+1.2</span>
+          <span>+0.8</span>
+          <span>+0.7</span>
+          <b>+3.6</b>
+        </div>
+        <div class="profile-row">
+          <b>Watch</b>
+          <strong>Player Placeholder</strong>
+          <span>+0.7</span>
+          <span>+1.0</span>
+          <span>+0.4</span>
+          <span>+1.0</span>
+          <b>+3.1</b>
+        </div>
+      </div>
+    </section>
   </main>
-
-  <script>
-    const categories = [
-      "Driving Dist.",
-      "Driving Acc.",
-      "Approach",
-      "Around Green",
-      "Putting"
-    ];
-
-    const players = {
-      scheffler: {
-        name: "Scottie Scheffler",
-        shortName: "Scheffler",
-        stats: {
-          "Driving Dist.": 1.55,
-          "Driving Acc.": 1.25,
-          "Approach": 2.75,
-          "Around Green": 2.15,
-          "Putting": 1.75
-        }
-      },
-      mcilroy: {
-        name: "Rory McIlroy",
-        shortName: "McIlroy",
-        stats: {
-          "Driving Dist.": 2.45,
-          "Driving Acc.": 0.65,
-          "Approach": 1.35,
-          "Around Green": 0.45,
-          "Putting": 1.05
-        }
-      }
-    };
-
-    const selectedPlayer = document.querySelector("#selectedPlayer");
-    const playerButtons = document.querySelectorAll("#playerList button");
-    const playerSearch = document.querySelector("#playerSearch");
-    const shape = document.querySelector("#playerShape");
-    const pointsGroup = document.querySelector("#points");
-    const valueLabelsGroup = document.querySelector("#valueLabels");
-    const axesGroup = document.querySelector("#axes");
-    const ringsGroup = document.querySelector("#rings");
-    const axisLabelsGroup = document.querySelector("#axisLabels");
-    const legendName = document.querySelector("#legendName");
-    const center = { x: 380, y: 330 };
-    const maxRadius = 240;
-    const minValue = -3;
-    const maxValue = 3;
-
-    function angleForIndex(index) {
-      return -Math.PI / 2 + index * ((Math.PI * 2) / categories.length);
-    }
-
-    function radiusForValue(value) {
-      const clamped = Math.max(minValue, Math.min(maxValue, value));
-      return ((clamped - minValue) / (maxValue - minValue)) * maxRadius;
-    }
-
-    function pointForValue(value, index) {
-      const angle = angleForIndex(index);
-      const radius = radiusForValue(value);
-
-      return pointForRadius(radius, index);
-    }
-
-    function pointForRadius(radius, index) {
-      const angle = angleForIndex(index);
-
-      return {
-        x: center.x + Math.cos(angle) * radius,
-        y: center.y + Math.sin(angle) * radius
-      };
-    }
-
-    function drawBaseChart() {
-      [60, 120, 180, 240].forEach((radius) => {
-        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        circle.setAttribute("class", "radar-ring");
-        circle.setAttribute("cx", center.x);
-        circle.setAttribute("cy", center.y);
-        circle.setAttribute("r", radius);
-        ringsGroup.appendChild(circle);
-      });
-
-      categories.forEach((category, index) => {
-        const outer = pointForValue(maxValue, index);
-        const label = pointForRadius(maxRadius + 44, index);
-        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-
-        line.setAttribute("class", "radar-axis");
-        line.setAttribute("x1", center.x);
-        line.setAttribute("y1", center.y);
-        line.setAttribute("x2", outer.x);
-        line.setAttribute("y2", outer.y);
-        axesGroup.appendChild(line);
-
-        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        text.setAttribute("class", "axis-label");
-        text.setAttribute("x", label.x);
-        text.setAttribute("y", label.y);
-        text.setAttribute("text-anchor", index === 1 || index === 2 ? "start" : index === 3 || index === 4 ? "end" : "middle");
-        text.textContent = category;
-        axisLabelsGroup.appendChild(text);
-      });
-    }
-
-    function formatSg(value) {
-      return value > 0 ? `+${value.toFixed(2)}` : value.toFixed(2);
-    }
-
-    function updateChart(playerKey) {
-      const player = players[playerKey] || players.scheffler;
-      const chartPoints = categories.map((category, index) => pointForValue(player.stats[category], index));
-
-      selectedPlayer.textContent = player.name;
-      legendName.textContent = `${player.shortName}'s Profile`;
-      shape.setAttribute("points", chartPoints.map((point) => `${point.x},${point.y}`).join(" "));
-      pointsGroup.innerHTML = "";
-      valueLabelsGroup.innerHTML = "";
-
-      chartPoints.forEach((point, index) => {
-        const value = player.stats[categories[index]];
-        const angle = angleForIndex(index);
-        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
-
-        circle.setAttribute("class", "radar-point");
-        circle.setAttribute("cx", point.x);
-        circle.setAttribute("cy", point.y);
-        circle.setAttribute("r", 8);
-        pointsGroup.appendChild(circle);
-
-        label.setAttribute("class", "point-value");
-        label.setAttribute("x", point.x - Math.cos(angle) * 22);
-        label.setAttribute("y", point.y - Math.sin(angle) * 22 + 5);
-        label.setAttribute("text-anchor", index === 1 || index === 2 ? "start" : index === 3 || index === 4 ? "end" : "middle");
-        label.textContent = formatSg(value);
-        valueLabelsGroup.appendChild(label);
-      });
-    }
-
-    playerButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        playerButtons.forEach((item) => item.classList.remove("active"));
-        button.classList.add("active");
-        updateChart(button.dataset.player);
-      });
-    });
-
-    playerSearch.addEventListener("input", () => {
-      const query = playerSearch.value.trim().toLowerCase();
-
-      playerButtons.forEach((button) => {
-        const playerName = button.textContent.toLowerCase();
-        button.hidden = !playerName.includes(query);
-      });
-    });
-
-    drawBaseChart();
-    updateChart("scheffler");
-  </script>
+  <script src="js_functions.js"></script>
 </body>
 </html>
